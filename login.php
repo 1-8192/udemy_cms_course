@@ -13,6 +13,12 @@
             die("database connection fail");
         };
 
+        $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (:name, :pass)");
+        $stmt->execute(array(
+            ':name' => $username,
+            ':pass' => $password
+        ));
+
         if ($username && $password) {
 
         } else {
