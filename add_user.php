@@ -35,7 +35,7 @@
     <body>
         <div class="container">
             <div class="col-xs-6">
-                <form action="login.php" method="POST">
+                <form action="add_user.php" method="POST">
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" name="username" class="form-control">
