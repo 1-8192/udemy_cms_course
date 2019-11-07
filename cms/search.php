@@ -16,9 +16,26 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
                 <?php 
+
+                    if (isset($_POST['submit'])) {
+                        $search =  $_POST['search'];
+
+                        $query = "SELECT * FROM posts WHERE post_tags LIKE :search";
+                        $stmt = $pdo->prepare($query);
+                        $stmt->execute(array(':search' => $search));
+
+                        if (!$stmt) {
+                            die("Query failed" . $pdo->errorInfo());
+                        } 
+
+                        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    } else {
+
                     $query = "SELECT * FROM posts";
                     $stmt = $pdo->query($query);
                     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    }
 
                     if (count($rows) > 0) {
                         foreach($rows as $row) {
