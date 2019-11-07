@@ -13,7 +13,18 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
+                    <?php 
+                        $query = "SELECT * FROM categories";
+                        $stmt = $pdo->query($query);
+                        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        if (count($rows) > 0) {
+                            foreach($rows as $row) {
+                                echo('<li><a href="#">'."$row[cat_title]".'</a></li>');
+                            }
+                    }
+                    ?>
+                    <!-- <li>
                         <a href="#">About</a>
                     </li>
                     <li>
@@ -21,7 +32,7 @@
                     </li>
                     <li>
                         <a href="#">Contact</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

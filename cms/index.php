@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php include_once "includes/db.php" ?>
 <!-- header -->
 <?php include_once "includes/header.php"; ?>
 <body>
