@@ -6,7 +6,7 @@
 <body>
 
     <div id="wrapper">
-        <?php include_once "includes/navigation.php" ?>
+        <?php include_once "includes/admin_navigation.php" ?>
         <div id="page-wrapper">
 
             <div class="container-fluid">
