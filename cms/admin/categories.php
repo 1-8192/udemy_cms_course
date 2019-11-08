@@ -20,13 +20,27 @@
                         </h1>
                             <!-- Add category form -->
                             <div class="col-xs-6">
-                                <form action="">
+                                <?php 
+                                    //logic for posting new category to db
+                                    if (isset($_POST['submit'])) {
+                                        $cat_title = $_POST['cat_title'];
+
+                                        if ($cat_title === "" || empty($cat_title)) {
+                                            echo "Empty field.";
+                                        } else {
+                                            $query = "INSERT INTO categories (cat_title) VALUES (:title)";
+                                            $stmt = $pdo->prepare($query);
+                                            $check = $stmt->execute(array(':title' => $cat_title));
+                                        }
+                                    }
+                                ?>
+                                <form action="" method="POST">
                                     <div class="form-group">
                                         <label for="cat_title">Add Category</label>
-                                        <input clas="form-control" type="text" name="cat_title">
+                                        <input class="form-control" type="text" name="cat_title">
                                     </div>
                                     <div class="form-group">
-                                        <input class="btn btn-primary" type="submit" name="Add Category">
+                                        <input class="btn btn-primary" type="submit" name="submit" value="Add">
                                     </div>
                                 </form>
                             </div>
@@ -46,7 +60,7 @@
                                     </thead>
                                     <tbody>
                                         <?php 
-                                            //looping through category names
+                                            //looping through category ids and names
                                             if (count($rows) > 0) {
                                                 foreach($rows as $row) {
                                                     echo('<tr><td>'."$row[cat_id]".'</td><td>'."$row[cat_title]".'</td></tr>');
