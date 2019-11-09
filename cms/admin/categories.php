@@ -20,7 +20,7 @@
                         </h1>
                             <!-- Add category form -->
                             <div class="col-xs-6">
-                                <!-- getting categories from db -->
+                                <!-- submit function for new category -->
                                 <?php insert_categories(); ?>
                                 <form action="" method="POST">
                                     <div class="form-group">
@@ -32,12 +32,6 @@
                                     </div>
                                 <?php include_once "includes/update_categories.php"; ?>
                             </div>
-                            <?php 
-                              //grabbing categories from db
-                              $query = "SELECT * FROM categories";
-                              $stmt = $pdo->query($query);
-                              $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            ?>
                             <div class="col-xs-6">
                                 <table class="table table-bordered table-hover">
                                     <thead>
@@ -48,25 +42,13 @@
                                     </thead>
                                     <tbody>
                                         <?php 
-                                            //looping through category ids and names
-                                            if (count($rows) > 0) {
-                                                foreach($rows as $row) {
-                                                    echo('<tr><td>'."$row[cat_id]".'</td><td>'."$row[cat_title]".'</td><td><a href="categories.php?delete='."$row[cat_id]".'">Delete</a></td><td><a href="categories.php?edit='."$row[cat_id]".'">Edit</a></td></tr>');
-                                                }
-                                            }
+                                        //grabbing categories from db and inserting into table
+                                         fetch_categories();
                                         ?>
 
                                         <?php 
                                             // deleting category logic
-                                            if (isset($_GET['delete'])) {
-                                                $cat_id = $_GET['delete'];
-
-                                                $query = "DELETE FROM categories WHERE cat_id = :cid";
-                                                $stmt = $pdo->prepare($query);
-                                                $stmt->execute(array(':cid' => $cat_id));
-                                                //refresh after delete
-                                                header("Location: categories.php");
-                                            }
+                                            delete_category();
                                         ?>
                                     </tbody>    
                                 </table>
