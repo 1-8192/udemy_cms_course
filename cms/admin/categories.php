@@ -42,7 +42,43 @@
                                     <div class="form-group">
                                         <input class="btn btn-primary" type="submit" name="submit" value="Add">
                                     </div>
-                                </form>
+                                <?php 
+                                    //update logic
+                                    if (isset($_GET['edit'])) {
+                                        $cat_id = $_GET['edit'];
+
+                                        $query = 'SELECT * FROM categories WHERE cat_id = :cid';
+                                        $stmt = $pdo->prepare($query);
+                                        $stmt->execute(array(':cid' => $cat_id));
+                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        $cat_title = $row['cat_title'];
+                                        $cat_id = $row['cat_id'];
+                                    }
+
+                                    if (isset($_POST['update'])) {
+                                        $cat_title = $_POST['cat_title'];
+                                        $query = "UPDATE categories SET cat_title = :ctitle WHERE cat_id = :cid";
+                                        $stmt = $pdo->prepare($query);
+                                        $stmt->execute(array(
+                                            ':cid' => $cat_id,
+                                            ':ctitle' => $cat_title));
+                                        header("location: categories.php");
+                                    }
+
+                                    //conditional HTML display for update form
+                                    if (isset($row)) {
+                                        echo('</form>
+                                        <form action="" method="POST">
+                                            <div class="form-group">
+                                                <label for="cat_title">Update Category</label>
+                                                <input class="form-control" type="text" name="cat_title" value='."$cat_title".'>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="btn btn-primary" type="submit" name="update" value="Update">
+                                            </div>
+                                        </form>');
+                                    }    
+                                ?>
                             </div>
                             <?php 
                               //grabbing categories from db
@@ -63,8 +99,21 @@
                                             //looping through category ids and names
                                             if (count($rows) > 0) {
                                                 foreach($rows as $row) {
-                                                    echo('<tr><td>'."$row[cat_id]".'</td><td>'."$row[cat_title]".'</td></tr>');
+                                                    echo('<tr><td>'."$row[cat_id]".'</td><td>'."$row[cat_title]".'</td><td><a href="categories.php?delete='."$row[cat_id]".'">Delete</a></td><td><a href="categories.php?edit='."$row[cat_id]".'">Edit</a></td></tr>');
                                                 }
+                                            }
+                                        ?>
+
+                                        <?php 
+                                            // deleting category logic
+                                            if (isset($_GET['delete'])) {
+                                                $cat_id = $_GET['delete'];
+
+                                                $query = "DELETE FROM categories WHERE cat_id = :cid";
+                                                $stmt = $pdo->prepare($query);
+                                                $stmt->execute(array(':cid' => $cat_id));
+                                                //refresh after delete
+                                                header("Location: categories.php");
                                             }
                                         ?>
                                     </tbody>    
