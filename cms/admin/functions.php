@@ -54,7 +54,7 @@
 
         if (count($rows) > 0) {
             foreach($rows as $row) {
-                echo('<tr><td>'."$row[post_id]".'</td><td>'."$row[post_author]".'</td><td>'."$row[post_title]".'</td><td>'."$row[category_id]".'</td><td>'."$row[post_status]".'</td><td><img class="img-responsive" src="../images/'."$row[post_image]".'"></td><td>'."$row[post_tags]".'</td><td>'."$row[post_comment_count]".'</td><td>'."$row[post_date]".'</td><td><a href="posts.php?delete='."$row[post_id]".'">Delete</a></td><td><a href="posts.php?edit='."$row[post_id]".'">Edit</a></td></tr>');
+                echo('<tr><td>'."$row[post_id]".'</td><td>'."$row[post_author]".'</td><td>'."$row[post_title]".'</td><td>'."$row[category_id]".'</td><td>'."$row[post_status]".'</td><td><img class="img-responsive" src="../images/'."$row[post_image]".'"></td><td>'."$row[post_tags]".'</td><td>'."$row[post_comment_count]".'</td><td>'."$row[post_date]".'</td><td><a href="posts.php?delete='."$row[post_id]".'">Delete</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Edit</a></td></tr>');
             }
         }
     }
