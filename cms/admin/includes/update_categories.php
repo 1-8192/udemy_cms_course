@@ -36,7 +36,6 @@
                                             </div>
                                             <div class="form-group">
                                                 <input class="btn btn-primary" type="submit" name="update" value="Update">
-                                            </div>
-                                        </form>');
+                                            </div>');
                                     }    
                                 ?>
