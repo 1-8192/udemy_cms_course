@@ -2,7 +2,7 @@
     include_once "./functions.php";
     
     if (isset($_POST['edit_post'])) {
-        insert_post();
+        update_post($_GET['p_id']);
     }
 
     if (isset($_POST['cancel'])) {
@@ -38,7 +38,7 @@
         <input type="text" class="form-control" name="post_title" value="<?php echo $post_title ?>">
     </div>
     <div class="form-group">
-        <select name="" id="">
+        <select name="post_category" id="">
             <?php 
                 $query = "SELECT * FROM categories";
                 $stmt = $pdo->query($query);
@@ -63,7 +63,9 @@
         <input type="text" class="form-control" name="post_status" value="<?php echo $post_status ?>">
     </div>
     <div class="form-group">
+        <label for="post_image">Post Image</label></br>
         <img width="100" src="../images/<?php echo $post_image; ?>" alt="post-image">
+        <input type="file" class="form-control" name="post_image">
     </div>
     <div class="form-group">
         <label for="poast_tags">Post Tags</label>

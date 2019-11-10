@@ -14,12 +14,12 @@
                                     if (isset($_POST['update'])) {
                                         try {
                                             $cat_title = $_POST['cat_title'];
-                                        $query = "UPDATE categories SET cat_title = :ctitle WHERE cat_id = :cid";
-                                        $stmt = $pdo->prepare($query);
-                                        $stmt->execute(array(
-                                            ':cid' => $cat_id,
-                                            ':ctitle' => $cat_title));
-                                        header("location: categories.php");
+                                            $query = "UPDATE categories SET cat_title = :ctitle WHERE cat_id = :cid";
+                                            $stmt = $pdo->prepare($query);
+                                            $stmt->execute(array(
+                                                ':cid' => $cat_id,
+                                                ':ctitle' => $cat_title));
+                                            header("location: categories.php");
                                         }
                                         catch(PDOException $exception) {
                                             return $exception;
