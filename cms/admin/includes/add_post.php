@@ -16,8 +16,21 @@
         <input type="text" class="form-control" name="post_title">
     </div>
     <div class="form-group">
-        <label for="post_category">Post Category ID</label>
-        <input type="text" class="form-control" name="post_category">
+        <select name="post_category" id="">
+            <?php 
+                $query = "SELECT * FROM categories";
+                $stmt = $pdo->query($query);
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+                if (count($rows) > 0) {
+                    foreach($rows as $row) {
+                        $cat_id = $row['cat_id'];
+                        $cat_title = $row['cat_title'];
+                        echo "<option value='$cat_id'>{$cat_title}</option>";
+                    }
+                }
+            ?>
+        </select>
     </div>
     <div class="form-group">
         <label for="author">Post Author</label>

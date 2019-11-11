@@ -27,4 +27,5 @@
                                         ?>
                                     </tbody>    
                                 </table>
+                                <a href="posts.php?source=add_post">Add New Post</a>
                             </div>
