@@ -28,7 +28,7 @@
                             $post_author = $row['post_author'];
                             $post_date = $row['post_date'];
                             $post_image = $row['post_image'];
-                            $post_body = $row['post_body'];
+                            $post_body = substr($row['post_body'], 0, 120);
 
                             ?>
 
