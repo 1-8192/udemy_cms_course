@@ -32,7 +32,7 @@
                             //looping through category names
                              if (count($rows) > 0) {
                                 foreach($rows as $row) {
-                                    echo('<li><a href="#">'."$row[cat_title]".'</a></li>');
+                                    echo('<li><a href="category.php?category='."$row[cat_id]".'">'."$row[cat_title]".'</a></li>');
                                 }
                         }
                             ?>
