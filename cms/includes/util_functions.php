@@ -24,5 +24,48 @@
         catch(PDOException $exception) {
             return $exception;
         }
+
+        //increment comment count for related post
+        increment_comment_count($post_id);
+    }
+
+    function increment_comment_count($post_id) {
+        global $pdo;
+        try {
+        $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 WHERE post_id = :pid";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(':pid' => $post_id));
+        }
+        catch(PDOException $exception) {
+            return $exception;
+        }
+    }
+
+    //grabs comments related to post and displays in html
+    function fetch_comments_for_post($post_id) {
+        global $pdo;
+        $query = "SELECT * FROM comments where post_id = :pid AND comment_status = 'approved' ORDER BY comment_id DESC";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(":pid" => $post_id));
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($rows) >0) {
+            foreach($rows as $row) {
+                $comment_author = $row['comment_author'];
+                $comment_body = $row['comment_body'];
+                $comment_date = $row['comment_date'];
+                
+                echo('<div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">'."$comment_author".'
+                            <small>'."$comment_date".'</small>
+                        </h4>'."$comment_body".'
+                    </div>
+                </div>');
+            }
+        }
     }
 ?>
