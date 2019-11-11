@@ -29,10 +29,12 @@
                                     </tbody>    
                                 </table>
                                 <?php 
+                                    //unapproving comment if clicked (functions.php)
                                     if (isset($_GET['unapprove'])) {
                                        unapprove_comment();
                                     }
-
+                                    
+                                    //approving comment on click (functions.php)
                                     if (isset($_GET['approve'])) {
                                         approve_comment();
                                     }
