@@ -16,12 +16,14 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
                 <?php 
+                    //grabbing posts and looping through to populate posts in index
                     $query = "SELECT * FROM posts";
                     $stmt = $pdo->query($query);
                     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     if (count($rows) > 0) {
                         foreach($rows as $row) {
+                            $post_id = $row['post_id'];
                             $post_title = $row['post_title'];
                             $post_author = $row['post_author'];
                             $post_date = $row['post_date'];
@@ -35,9 +37,9 @@
                     <small>Secondary Text</small>
                 </h1>
 
-                <!-- First Blog Post -->
+                <!-- Blog Posts -->
                 <h2>
-                    <a href="#"><?php echo $post_title ?></a>
+                    <a href="post.php?p_id=<?php echo $post_id ?>"><?php echo $post_title ?></a>
                 </h2>
                 <p class="lead">
                     by <a href="index.php"><?php echo $post_author ?></a>
@@ -47,7 +49,7 @@
                 <img class="img-responsive" src="images/<?php echo $post_image ?>" alt="">
                 <hr>
                 <p><?php echo $post_body ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
 
 
