@@ -165,4 +165,30 @@
                 return $exception;
             }
     }
+
+    //grab post name from id
+    function get_post_name_from_id($id) {
+        global $pdo;
+        $query = "SELECT * FROM posts WHERE post_id = $id";
+        $stmt = $pdo->query($query);
+        $post_row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $post_row['post_title'];
+    }
+
+    //fetch comments to populate admin index page
+    function fetch_comments() {
+        global $pdo;
+        $query = "SELECT * FROM comments";
+        $stmt = $pdo->query($query);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($rows) > 0) {
+            foreach($rows as $row) {
+
+                $post_title = get_post_name_from_id($row['post_id']);
+
+                echo('<tr><td>'."$row[comment_id]".'</td><td>'."$row[comment_author]".'</td><td>'."$row[comment_email]".'</td><td>'."$row[comment_body]".'</td><td>'."$row[comment_status]".'</td><td>'."$post_title".'</td><td>'."$row[comment_date]".'</td><td><a href="posts.php?delete='."$row[post_id]".'">Approve</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Unapprove</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Edit</a></td></tr>');
+            }
+        }
+    }
 ?>
