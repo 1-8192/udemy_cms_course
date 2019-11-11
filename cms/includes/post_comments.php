@@ -1,6 +1,7 @@
 <!-- Blog Comments -->
                 <?php 
                     include_once "util_functions.php";
+                    //posting comment to db
                     if (isset($_POST['create_comment'])) {
                         insert_comment();
                     }

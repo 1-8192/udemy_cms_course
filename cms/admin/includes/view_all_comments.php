@@ -28,4 +28,14 @@
                                         ?>
                                     </tbody>    
                                 </table>
+                                <?php 
+                                    if (isset($_GET['unapprove'])) {
+                                       unapprove_comment();
+                                    }
+
+                                    if (isset($_GET['approve'])) {
+                                        approve_comment();
+                                    }
+                                
+                                ?>
                             </div>

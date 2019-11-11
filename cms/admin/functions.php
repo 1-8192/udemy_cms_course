@@ -187,7 +187,7 @@
                 $post_id = $row['post_id'];
                 $post_title = get_post_name_from_id($post_id);
 
-                echo('<tr><td>'."$row[comment_id]".'</td><td>'."$row[comment_author]".'</td><td>'."$row[comment_email]".'</td><td>'."$row[comment_body]".'</td><td>'."$row[comment_status]".'</td><td><a href="../post.php?p_id='."$post_id".'">'."$post_title".'</a></td><td>'."$row[comment_date]".'</td><td><a href="posts.php?delete='."$row[post_id]".'">Approve</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Unapprove</a></td><td><a href="comments.php?delete='."$row[comment_id]".'">Delete</a></td></tr>');
+                echo('<tr><td>'."$row[comment_id]".'</td><td>'."$row[comment_author]".'</td><td>'."$row[comment_email]".'</td><td>'."$row[comment_body]".'</td><td>'."$row[comment_status]".'</td><td><a href="../post.php?p_id='."$post_id".'">'."$post_title".'</a></td><td>'."$row[comment_date]".'</td><td><a href="comments.php?approve='."$row[comment_id]".'">Approve</a></td><td><a href="comments.php?unapprove='."$row[comment_id]".'">Unapprove</a></td><td><a href="comments.php?delete='."$row[comment_id]".'">Delete</a></td></tr>');
             }
         }
     }
@@ -204,5 +204,27 @@
             //refresh after delete
             header("Location: comments.php");
         }
+    }
+
+    //toggles the comment to approved status from pending
+    function approve_comment() {
+        global $pdo;
+        $comment_id = $_GET['approve'];
+
+        $query = "UPDATE comments SET comment_status = 'approved' WHERE comment_id = :cid";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(':cid' => $comment_id));
+        header("Location: comments.php");
+    }
+
+    //toggles the comment to pending status from approved
+    function unapprove_comment() {
+        global $pdo;
+        $comment_id = $_GET['unapprove'];
+
+        $query = "UPDATE comments SET comment_status = 'pending' WHERE comment_id = :cid";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(':cid' => $comment_id));
+        header("Location: comments.php");
     }
 ?>
