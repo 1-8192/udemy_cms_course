@@ -17,7 +17,7 @@
             <div class="col-md-8">
                 <?php 
                     //grabbing posts and looping through to populate posts in index
-                    $query = "SELECT * FROM posts";
+                    $query = "SELECT * FROM posts WHERE post_status = 'published'";
                     $stmt = $pdo->query($query);
                     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -54,6 +54,8 @@
 
 
                         <?php } 
+                } else {
+                    echo '<h2 class="text-center">No approved posts, sorry :-(</h2>';
                 }
                 ?>
            

@@ -29,6 +29,7 @@
         increment_comment_count($post_id);
     }
 
+    //adds 1 to comment count for related post
     function increment_comment_count($post_id) {
         global $pdo;
         try {
