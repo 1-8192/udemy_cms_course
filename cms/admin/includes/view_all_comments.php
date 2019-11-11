@@ -13,18 +13,18 @@
                                             <th>Date</th>
                                             <th>Approve</th>
                                             <th>Unapprove</th>
-                                            <th>Edit</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php 
-                                        //grabbing posts from db and inserting into table
+                                        //grabbing posts from db and inserting into table (functions.php)
                                          fetch_comments();
                                         ?>
 
                                         <?php 
-                                            // deleting post logic
-                                            delete_post();
+                                            // deleting post logic (functions.php)
+                                            delete_comment();
                                         ?>
                                     </tbody>    
                                 </table>

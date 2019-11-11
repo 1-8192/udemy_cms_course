@@ -184,11 +184,25 @@
 
         if (count($rows) > 0) {
             foreach($rows as $row) {
+                $post_id = $row['post_id'];
+                $post_title = get_post_name_from_id($post_id);
 
-                $post_title = get_post_name_from_id($row['post_id']);
-
-                echo('<tr><td>'."$row[comment_id]".'</td><td>'."$row[comment_author]".'</td><td>'."$row[comment_email]".'</td><td>'."$row[comment_body]".'</td><td>'."$row[comment_status]".'</td><td>'."$post_title".'</td><td>'."$row[comment_date]".'</td><td><a href="posts.php?delete='."$row[post_id]".'">Approve</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Unapprove</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Edit</a></td></tr>');
+                echo('<tr><td>'."$row[comment_id]".'</td><td>'."$row[comment_author]".'</td><td>'."$row[comment_email]".'</td><td>'."$row[comment_body]".'</td><td>'."$row[comment_status]".'</td><td><a href="../post.php?p_id='."$post_id".'">'."$post_title".'</a></td><td>'."$row[comment_date]".'</td><td><a href="posts.php?delete='."$row[post_id]".'">Approve</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Unapprove</a></td><td><a href="comments.php?delete='."$row[comment_id]".'">Delete</a></td></tr>');
             }
+        }
+    }
+
+    //delete function for deleting comments from db
+    function delete_comment() {
+        global $pdo;
+        if (isset($_GET['delete'])) {
+            $comment_id = $_GET['delete'];
+
+            $query = "DELETE FROM comments WHERE comment_id = :pid";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute(array(':pid' => $comment_id));
+            //refresh after delete
+            header("Location: comments.php");
         }
     }
 ?>
