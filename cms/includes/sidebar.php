@@ -16,6 +16,23 @@
                     <!-- /.input-group -->
                 </div>
 
+                <!-- login -->
+                <div class="well">
+                    <h4>Log In</h4>
+                    <form action="includes/login.php" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="user_name" class="form-control" placeholder="enter username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="passwprd" class="form-control" placeholder="enter password">
+                        <span class="innput-group-btn">
+                            <button class="btn btn-primary" name="login" type="submit">Login</button>
+                        </span>
+                    </div>
+                    </form>
+                    <!-- /.input-group -->
+                </div>
+
                 <!-- Blog Categories Well -->
                 <div class="well">
                 <?php 
