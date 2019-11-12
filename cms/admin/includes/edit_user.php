@@ -1,31 +1,30 @@
 <?php 
     include_once "./functions.php";
     
-    if (isset($_POST['edit_post'])) {
-        update_post($_GET['p_id']);
+    if (isset($_POST['edit_user'])) {
+        update_user($_GET['u_id']);
     }
 
     if (isset($_POST['cancel'])) {
-        header("Location: ./posts.php");
+        header("Location: ./users.php");
     }
 
     //grabbing existing post data from db
-    if (isset($_GET['p_id'])) {  
+    if (isset($_GET['u_id'])) {  
 
-        $query = "SELECT * FROM posts WHERE post_id = :pid";
+        $query = "SELECT * FROM users WHERE user_id = :uid";
         $stmt = $pdo->prepare($query);
-        $stmt->execute(array(":pid" => $_GET['p_id']));
+        $stmt->execute(array(":uid" => $_GET['u_id']));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $post_title = $row['post_title'];
-        $post_category_id = $row['category_id'];
-        $post_author = $row['post_author'];
-        $post_image = $row['post_image'];
-        $post_tags = $row['post_tags'];
-        $post_body = $row['post_body'];
-        $post_date = $row['post_date'];
-        $post_comment_count = $row['post_comment_count'];
-        $post_status = $row['post_status'];
+        $user_id = $_GET['u_id'];
+        $user_first_name = $row['user_first_name'];
+        $user_last_name = $row['user_last_name'];
+        $user_email = $row['user_email'];
+        $user_name = $row['user_name'];
+        $user_password = $row['user_password'];
+        $user_role = $row['user_role'];
+        $user_image = $row['user_image'];
     } else {
         die("Oops no ID");
     }
@@ -34,49 +33,40 @@
 
 <form action ="" method="POST" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="title">Post Title</label>
-        <input type="text" class="form-control" name="post_title" value="<?php echo $post_title ?>">
+        <label for="user_first_name">First Name</label>
+        <input type="text" class="form-control" name="user_first_name" value="<?php echo $user_first_name; ?>">
     </div>
     <div class="form-group">
-        <select name="post_category" id="">
-            <?php 
-                $query = "SELECT * FROM categories";
-                $stmt = $pdo->query($query);
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-                if (count($rows) > 0) {
-                    foreach($rows as $row) {
-                        $cat_id = $row['cat_id'];
-                        $cat_title = $row['cat_title'];
-                        echo "<option value='$cat_id'>{$cat_title}</option>";
-                    }
-                }
-            ?>
+        <label for="user_last_name">Last Name</label>
+        <input type="text" class="form-control" name="user_last_name" value="<?php echo $user_last_name; ?>">
+    </div>
+    <div class="form-group">
+        <label for="user_email">Email</label>
+        <input type="email" class="form-control" name="user_email" value="<?php echo $user_email; ?>">
+    </div>
+    <div class="form-group">
+        <label for="user_name">Username</label>
+        <input type="text" class="form-control" name="user_name" value="<?php echo $user_name; ?>">
+    </div>
+    <div class="form-group">
+        <label for="user_password">Password</label>
+        <input type="password" class="form-control" name="user_password" value="<?php echo $user_password; ?>">
+    </div>
+    <div class="form-group">
+        <label for="user_role">Access</label>
+        <select name="user_role" id="">
+            <option value="<?php echo $user_first_name; ?>"><?php echo $user_role ?></option>
+            <option value="admin">Admin</option>
+            <option value="subscriber">Subscriber</opton>
         </select>
     </div>
     <div class="form-group">
-        <label for="author">Post Author</label>
-        <input type="text" class="form-control" name="author" value="<?php echo $post_author ?>">
+        <label for="user_image">User Image</label></br>
+        <img width="100" src="../images/<?php echo $user_image; ?>" alt="user-image">
+        <input type="file" class="form-control" name="user_image">
     </div>
     <div class="form-group">
-        <label for="post_status">Post Status</label>
-        <input type="text" class="form-control" name="post_status" value="<?php echo $post_status ?>">
-    </div>
-    <div class="form-group">
-        <label for="post_image">Post Image</label></br>
-        <img width="100" src="../images/<?php echo $post_image; ?>" alt="post-image">
-        <input type="file" class="form-control" name="post_image">
-    </div>
-    <div class="form-group">
-        <label for="poast_tags">Post Tags</label>
-        <input type="text" class="form-control" name="post_tags" value="<?php echo $post_tags ?>">
-    </div>
-    <div class="form-group">
-        <label for="post_body">Post Body</label>
-        <textarea class="form-control" name="post_body" cols="30" rows="10"><?php echo $post_title ?></textarea>
-    </div>
-    <div class="form-group">
-        <input class="btn btn-primary" type="submit" name="edit_post" value="Update Post">
+        <input class="btn btn-primary" type="submit" name="edit_user" value="Update User">
         <input class="btn btn-primary" type="submit" name="cancel" value="Cancel">
     </div>
 </form>

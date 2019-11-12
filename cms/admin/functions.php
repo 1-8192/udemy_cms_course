@@ -238,7 +238,7 @@
         if (count($rows) > 0) {
             foreach($rows as $row) {
 
-                echo('<tr><td>'."$row[user_id]".'</td><td>'."$row[user_name]".'</td><td>'."$row[user_first_name]".'</td><td>'."$row[user_last_name]".'</td><td>'."$row[user_email]".'</td><td>'."$row[user_role]".'</td><td><a href="users.php?source=edit_user&p_id='."$row[user_id]".'">Edit</a></td><td><a href="users.php?delete='."$row[user_id]".'">Delete</a></td></tr>');
+                echo('<tr><td>'."$row[user_id]".'</td><td>'."$row[user_name]".'</td><td>'."$row[user_first_name]".'</td><td>'."$row[user_last_name]".'</td><td>'."$row[user_email]".'</td><td>'."$row[user_role]".'</td><td><a href="users.php?source=edit_user&u_id='."$row[user_id]".'">Edit</a></td><td><a href="users.php?delete='."$row[user_id]".'">Delete</a></td></tr>');
             }
         }
     }
@@ -259,7 +259,7 @@
             //moving file name for image to images folder
             move_uploaded_file($user_image_temp, "../images/$user_image");
     
-            try {
+            // try {
             $query = "INSERT INTO users (user_first_name, user_last_name, user_email, user_name, user_password, user_role, user_image) VALUES (:ufn, :uln, :em, :unm, :pass, :rol, :img)";
             $stmt = $pdo->prepare($query);
             $stmt->execute(array(
@@ -272,10 +272,10 @@
                 ':img' => $user_image
                 ));
                 header("Location: users.php");
-            } 
-            catch(PDOException $exception) {
-                return $exception;
-            }
+            // } 
+            // catch(PDOException $exception) {
+            //     return $exception;
+            // }
     }
 
     //delete function for deleting user from db
@@ -289,6 +289,49 @@
             $stmt->execute(array(':uid' => $user_id));
             //refresh after delete
             header("Location: users.php");
+        }
+    }
+
+    //updates user data in db
+    function update_user($id) {
+        global $pdo;
+        $user_id = intval($id);
+        $user_first_name = $_POST['user_first_name'];
+        $user_last_name = $_POST['user_last_name'];
+        $user_email = $_POST['user_email'];
+        $user_name = $_POST['user_name'];
+        $user_password = $_POST['user_password'];
+        $user_role = $_POST['user_role'];
+        $user_image = $_FILES['user_image']['name'];
+        $user_image_temp = $_FILES['user_image']['tmp_name'];
+
+        //moving file name for image to images folder
+        move_uploaded_file($user_image_temp, "../images/$user_image");
+
+        if (empty($user_image)) {
+            $query = "SELECT user_image FROM users WHERE user_id = $user_id";
+            $stmt = $pdo->query($query);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $user_image = $row[user_image];
+        }
+    
+        try {
+        $query = "UPDATE users SET user_first_name = :ufn, user_last_name = :uln, user_email = :em, user_name = :unm, user_password = :pass, user_role = :rol, user_image = :img WHERE user_id = :uid";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(
+            ':uid' => $user_id,
+            ':ufn' => $user_first_name,
+            ':uln' => $user_last_name,
+            ':em' => $user_email,
+            ':unm' => $user_name,
+            ':pass' => $user_password,
+            ':rol' => $user_role,
+            ':img' => $user_image
+            ));
+            header("Location: users.php");
+        } 
+        catch(PDOException $exception) {
+            return $exception;
         }
     }
 ?>
