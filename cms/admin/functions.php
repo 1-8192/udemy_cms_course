@@ -282,13 +282,13 @@
     function delete_user() {
         global $pdo;
         if (isset($_GET['delete'])) {
-            $comment_id = $_GET['delete'];
+            $user_id = $_GET['delete'];
 
-            $query = "DELETE FROM comments WHERE comment_id = :pid";
+            $query = "DELETE FROM users WHERE user_id = :uid";
             $stmt = $pdo->prepare($query);
-            $stmt->execute(array(':pid' => $comment_id));
+            $stmt->execute(array(':uid' => $user_id));
             //refresh after delete
-            header("Location: comments.php");
+            header("Location: users.php");
         }
     }
 ?>
