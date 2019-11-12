@@ -1,30 +1,27 @@
-
 <div class="col-xs-6">
                             <div class="col-xs-6">
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Author</th>
-                                            <th>Email</th>
-                                            <th>Comment</th>
-                                            <th>Status</th>
-                                            <th>Post</th>
-                                            <th>Date</th>
-                                            <th>Approve</th>
-                                            <th>Unapprove</th>
+                                            <th>username</th>
+                                            <th>first name</th>
+                                            <th>last name</th>
+                                            <th>email</th>
+                                            <th>role</th>
+                                            <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php 
-                                        //grabbing posts from db and inserting into table (functions.php)
-                                         fetch_comments();
+                                            //grabbing users from db and inserting into table (functions.php)
+                                            fetch_users();
                                         ?>
 
                                         <?php 
-                                            // deleting post logic (functions.php)
-                                            delete_comment();
+                                            // deleting user logic (functions.php)
+                                            delete_user();
                                         ?>
                                     </tbody>    
                                 </table>
