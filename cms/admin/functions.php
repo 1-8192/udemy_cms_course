@@ -48,8 +48,9 @@
     //grab category name from id
     function get_category_name_from_id($id) {
         global $pdo;
-        $query = "SELECT * FROM categories WHERE cat_id = $id";
-        $stmt = $pdo->query($query);
+        $query = "SELECT * FROM categories WHERE cat_id = :cid";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(':cid' => $id));
         $cat_row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $cat_row['cat_title'];
     }
