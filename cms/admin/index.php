@@ -143,6 +143,28 @@
                 </div>
                 <!-- /.row -->
 
+                <?php 
+                    //queries for graph data
+
+                    //draft posts
+                    $query = "SELECT * FROM posts WHERE post_status = 'draft'";
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute();
+                    $post_draft_count = $stmt->rowCount();
+
+                    //unapproved comments
+                    $query = "SELECT * FROM comments WHERE comment_status = 'pending'";
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute();
+                    $com_count_unap = $stmt->rowCount();
+
+                    //non-admin users
+                    $query = "SELECT * FROM users WHERE user_role = 'subscriber'";
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute();
+                    $user_count_sub = $stmt->rowCount();
+                ?>
+
                 <div class="row">
                     <script type="text/javascript">
                     google.charts.load('current', {'packages':['bar']});
@@ -152,9 +174,14 @@
                         var data = google.visualization.arrayToDataTable([
                         ['Date', 'Count'],
                         <?php 
-                        
+                            $element_text = ['Active Posts', 'Drafts', 'Comments', 'Pending Comments', 'Users', 'Subscribers','Categories'];
+                            $element_count = [$post_count, $post_draft_count, $com_count, $com_count_unap, $user_count, $user_count_sub, $cat_count];
+
+                            for ($i = 0; $i < 6; $i++) {
+                                echo "['{$element_text[$i]}'" . "," ."{$element_count[$i]}],";
+                            }
+
                         ?>
-                        ['Posts', 1000],
                         ]);
 
                         var options = {
