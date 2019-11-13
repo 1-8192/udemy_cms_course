@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Welcome, Admin
+                            Welcome, <?php echo $_SESSION['user_first_name']; ?>
                             <small>Subheading</small>
                         </h1>
                             <li>

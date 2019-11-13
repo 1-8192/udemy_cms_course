@@ -1,6 +1,7 @@
 <?php 
     //login logic for website redirected from sidebar well
     include_once "db.php";
+    session_start();
 
     if (isset($_POST['login'])) {
         $user_name = $_POST['user_name'];
@@ -17,11 +18,12 @@
         if (count($row) < 1) {
             die("Query failed");
         } else {
-            $user_id = $row[user_id];
-            $user_first_name = $row['user_first_name'];
-            $user_last_name = $row['user_last_name'];
-            $user_role = $row['user_role'];
-            $user_image = $row['user_image'];
+            $_SESSION['user_name'] = htmlentities($row['user_name']);
+            $_SESSION['user_first_name'] = htmlentities($row['user_first_name']);
+            $_SESSION['user_last_name'] = htmlentities($row['user_last_name']);
+            $_SESSION['user_role'] = htmlentities($row['user_role']);
+            
+            header("Location: ../admin/index.php");
         }
     }
 ?>

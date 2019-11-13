@@ -1,7 +1,15 @@
-<?php ob_start(); ?>
 <?php 
+    ob_start(); 
     include_once "../includes/db.php";
     include_once "functions.php"; 
+    session_start();
+
+    //validates user role 
+    if(isset($_SESSION['user_role'])) {
+        if ($_SESSION['user_role'] !== 'admin') {
+            header("Location: ../index.php");
+        }
+    }
 ?>
 <head>
 
