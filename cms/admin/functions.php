@@ -260,7 +260,7 @@
             //moving file name for image to images folder
             move_uploaded_file($user_image_temp, "../images/$user_image");
     
-            // try {
+            try {
             $query = "INSERT INTO users (user_first_name, user_last_name, user_email, user_name, user_password, user_role, user_image) VALUES (:ufn, :uln, :em, :unm, :pass, :rol, :img)";
             $stmt = $pdo->prepare($query);
             $stmt->execute(array(
@@ -272,11 +272,12 @@
                 ':rol' => $user_role,
                 ':img' => $user_image
                 ));
+                $_SESSION['success'] = "Profile added";
                 header("Location: users.php");
-            // } 
-            // catch(PDOException $exception) {
-            //     return $exception;
-            // }
+            } 
+            catch(PDOException $exception) {
+                return $exception;
+            }
     }
 
     //delete function for deleting user from db

@@ -15,6 +15,9 @@
 
             <!-- Blog Entries Column -->
             <div class="col-md-8">
+            <h1 class="page-header">
+                    Blog Articles
+        
                 <?php 
                     //grabbing posts and looping through to populate posts in index
                     $query = "SELECT * FROM posts WHERE post_status = 'published'";
@@ -31,10 +34,6 @@
                             $post_body = substr($row['post_body'], 0, 120);
 
                             ?>
-
-                             <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
                 </h1>
 
                 <!-- Blog Posts -->

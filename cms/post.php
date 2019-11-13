@@ -31,12 +31,6 @@
                         $post_body = $row['post_body'];
                     }
                 ?>
-
-                <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
-                </h1>
-
                 <!-- First Blog Post -->
                 <h2>
                     <a href="#"><?php echo $post_title ?></a>
@@ -49,7 +43,6 @@
                 <img class="img-responsive" src="images/<?php echo $post_image ?>" alt="">
                 <hr>
                 <p><?php echo $post_body ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
            
                 <hr>
                 <?php include_once "includes/post_comments.php" ?>
