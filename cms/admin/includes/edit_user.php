@@ -55,7 +55,7 @@
     <div class="form-group">
         <label for="user_role">Access</label>
         <select name="user_role" id="">
-            <option value="<?php echo $user_first_name; ?>"><?php echo $user_role ?></option>
+            <option value="<?php echo $user_role; ?>"><?php echo $user_role ?></option>
             <option value="admin">Admin</option>
             <option value="subscriber">Subscriber</opton>
         </select>
