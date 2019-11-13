@@ -5,10 +5,10 @@
     session_start();
 
     //validates user role 
-    if(isset($_SESSION['user_role'])) {
-        if ($_SESSION['user_role'] !== 'admin') {
-            header("Location: ../index.php");
-        }
+    if(!isset($_SESSION['user_role'])) {
+        header("Location: ../index.php");
+    } else {
+        //****to do: validate that user is admin to determine level of access
     }
 ?>
 <head>

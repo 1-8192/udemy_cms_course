@@ -18,9 +18,13 @@
         if (count($row) < 1) {
             die("Query failed");
         } else {
+            $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['user_name'] = htmlentities($row['user_name']);
             $_SESSION['user_first_name'] = htmlentities($row['user_first_name']);
             $_SESSION['user_last_name'] = htmlentities($row['user_last_name']);
+            $_SESSION['user_email'] = $row['user_email'];
+            $_SESSION['password'] = htmlentities($row['user_password']);
+            $_SESISON['user_image'] = htmlentities($row['user_image']);
             $_SESSION['user_role'] = htmlentities($row['user_role']);
             
             header("Location: ../admin/index.php");
