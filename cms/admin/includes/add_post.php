@@ -50,7 +50,7 @@
     </div>
     <div class="form-group">
         <label for="post_body">Post Body</label>
-        <textarea class="form-control" name="post_body" cols="30" rows="10">
+        <textarea class="form-control" name="post_body" cols="30" rows="10" id="body">
         </textarea>
     </div>
     <div class="form-group">
@@ -58,3 +58,10 @@
         <input class="btn btn-primary" type="submit" name="cancel" value="Cancel">
     </div>
 </form>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#body' ) )
+        .catch( error => {
+            console.error( error )
+        } );
+    </script>
