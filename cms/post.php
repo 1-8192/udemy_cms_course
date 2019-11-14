@@ -39,6 +39,14 @@
                     by <a href="index.php"><?php echo $post_author ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
+                <?php 
+                    if (isset($_SESSION['user_name'])) {
+                        if (isset($_GET['p_id'])) {
+                            $id = $_GET['p_id'];
+                        echo '<a href="admin/posts.php?source=edit_post&p_id='."$id".'">Edit Post</a>';
+                        }
+                    }
+                    ?>
                 <hr>
                 <img class="img-responsive" src="images/<?php echo $post_image ?>" alt="">
                 <hr>
