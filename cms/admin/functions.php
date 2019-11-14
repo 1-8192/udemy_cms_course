@@ -103,6 +103,7 @@
                 ':coms' => $post_comment_count,
                 ':status' => $post_status
                 ));
+                $_SESSION['success'] = "Post added";
                 header("Location: posts.php");
             } 
             catch(PDOException $exception) {
@@ -120,6 +121,7 @@
             $stmt = $pdo->prepare($query);
             $stmt->execute(array(':pid' => $post_id));
             //refresh after delete
+            $_SESSION['success'] = "Post Deleted";
             header("Location: posts.php");
         }
     }
@@ -160,6 +162,7 @@
                 ':status' => $post_status,
                 ':pid' => $post_id
                 ));
+                $_SESSION['success'] = "Post updated";
                 header("Location: posts.php");
             } 
             catch(PDOException $exception) {

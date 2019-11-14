@@ -1,6 +1,12 @@
 
 <div class="col-xs-6">
                             <div class="col-xs-6">
+                            <?php 
+                                if (isset($_SESSION['success'])) {
+                                    $message = $_SESSION['success'];
+                                    echo '<h2 style="color:green">'."$message".'</h2>';
+                                }
+                            ?>
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
