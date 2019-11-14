@@ -6,10 +6,17 @@
                                     $message = $_SESSION['success'];
                                     echo '<h3 style="color:green">'."$message".'</h3>';
                                 }
+
+                                if (isset($_POST['checkBoxArray'])) {
+                                    foreach($_POST['checkBoxArray'] as $checkBoxValue) {
+                                        echo "<h1>$checkBoxValue</h1>";
+                                        $bulk_options = $_POST['bulk_options'];
+                                    }
+                                }
                             ?>
                             <form action="" method="POST">
                                 <div id="bulkOptionsContainer" clas="col-xs-4">
-                                    <select class="form-control">
+                                    <select class="form-control" name="bulk_options">
                                         <option value="">Select Bulk Option</option>
                                         <option value="">Publish</option>
                                         <option value="">Draft</option>
