@@ -58,8 +58,9 @@
                     <th>Tags</th>
                     <th>Comments</th>
                     <th>Date</th>
-                    <th>Delete</th>
+                    <th>View</th>
                     <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>

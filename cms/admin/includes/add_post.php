@@ -16,6 +16,7 @@
         <input type="text" class="form-control" name="post_title">
     </div>
     <div class="form-group">
+        <label for="post_category">Category</label>
         <select name="post_category" id="">
             <?php 
                 $query = "SELECT * FROM categories";
@@ -38,7 +39,11 @@
     </div>
     <div class="form-group">
         <label for="post_status">Post Status</label>
-        <input type="text" class="form-control" name="post_status">
+        <select name="post_status">
+                <option value="draft">Select Status</option>
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+        </select>
     </div>
     <div class="form-group">
         <label for="post_image">Post Image</label>
