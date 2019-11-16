@@ -23,6 +23,7 @@
                     break;
 
                     case 'delete':
+                        bulk_update_delete_post($checkBoxValueId);
                     break;
 
                     default:
