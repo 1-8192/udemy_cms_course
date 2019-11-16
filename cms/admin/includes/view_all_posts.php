@@ -2,6 +2,7 @@
 <div class="col-xs-6">
     <div class="col-xs-6">
     <?php 
+        include_once "post_functions.php";
         if (isset($_SESSION['success'])) {
             $message = $_SESSION['success'];
             echo '<h3 style="color:green">'."$message".'</h3>';
@@ -14,21 +15,11 @@
 
                 switch($bulk_options) {
                     case 'published':
-                        $query = "UPDATE posts SET post_status = :pstat WHERE post_id = :pid";
-                        $stmt = $pdo->prepare($query);
-                        $stmt->execute(array(
-                            ':pstat' => $bulk_options,
-                            ':pid' => $checkBoxValueId
-                        ));
+                        bulk_update_post_status($bulk_options, $checkBoxValueId);
                     break;
 
                     case 'draft':
-                        $query = "UPDATE posts SET post_status = :pstat WHERE post_id = :pid";
-                        $stmt = $pdo->prepare($query);
-                        $stmt->execute(array(
-                            ':pstat' => $bulk_options,
-                            ':pid' => $checkBoxValueId
-                        ));
+                        bulk_update_post_status($bulk_options, $checkBoxValueId);
                     break;
 
                     case 'delete':
