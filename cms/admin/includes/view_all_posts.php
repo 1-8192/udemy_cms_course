@@ -27,8 +27,10 @@
                         bulk_update_delete_post($checkBoxValueId);
                     break;
 
-                    default:
+                    case 'clone':
+                        clone_post($checkBoxValueId);
                     break;
+
                 }
             }
         }
@@ -39,6 +41,7 @@
                 <option value="">Select Bulk Option</option>
                 <option value="published">Publish</option>
                 <option value="draft">Draft</option>
+                <option value="clone">Clone</option>
                 <option value="delete">Delete</option>
             </select>
         </div>

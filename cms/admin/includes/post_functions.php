@@ -45,4 +45,42 @@
             }
         }
     }
+
+    function clone_post($id) {
+        global $pdo;
+        $query = "SELECT * FROM posts WHERE post_id = :pid";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(':pid' => $id));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        $post_title = $row['post_title'];
+        $post_category_id = $row['category_id'];
+        $post_date = $row['post_date'];
+        $post_author = $row['post_author'];
+        $post_status = $row['post_status'];
+        $post_image = $row['post_image'];
+        $post_tags = $row['post_tags'];
+        $post_body = $row['post_body'];
+
+        try {
+            $query = "INSERT INTO posts (category_id, post_title, post_author, post_date, post_image, post_body, post_tags, post_status) VALUES (:cid, :title, :author, :date, :image, :body, :tags, :status)";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute(array(
+                ':cid' => $post_category_id,
+                ':title' => $post_title,
+                ':author' => $post_author,
+                ':date' => $post_date,
+                ':image' => $post_image,
+                ':body' => $post_body,
+                ':tags' => $post_tags,
+                ':status' => $post_status
+                ));
+                $_SESSION['success'] = "Post cloned";
+                header("Location: posts.php");
+            } 
+            catch(PDOException $exception) {
+                return $exception;
+            }
+
+    }
 ?>
