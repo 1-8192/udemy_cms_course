@@ -11,10 +11,22 @@
     <div class="container">
 <?php 
  if (isset($_POST['submit'])) {
-    $user_name = $_POST['user_name'];
-    $password = $_POST['password'];
-    $user_email = $_POST['user_email'];
- }
+     if (!empty($_POST['user_name']) && !empty($_POST['password']) && !empty($_POST['user_email'])) {
+        $user_name = $_POST['user_name'];
+        $password = $_POST['password'];
+        $user_email = $_POST['user_email'];
+
+        $query = "SELECT rand_salt FROM users";
+        $stmt = $pdo->query($query);
+
+        if (!$stmt) {
+            die("Query failed" . PDOException($exception));
+        }
+
+        $rand_salt = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+    }
+}
 ?>
 <section id="login">
     <div class="container">

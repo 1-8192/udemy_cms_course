@@ -15,7 +15,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <?php 
-                        $query = "SELECT * FROM categories";
+                        $query = "SELECT * FROM categories LIMIT 3";
                         $stmt = $pdo->query($query);
                         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -26,7 +26,10 @@
                     }
                     ?>
                     <li>
-                        <a href="admin">Admin</a>
+                        <a href="registration.php">REGISTER</a>
+                    </li>
+                    <li>
+                        <a href="admin">ADMIN</a>
                     </li> 
                 </ul>
             </div>
