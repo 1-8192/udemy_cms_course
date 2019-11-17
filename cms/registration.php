@@ -1,4 +1,7 @@
-<?php  include "includes/db.php"; ?>
+<?php  
+    include "includes/db.php"; 
+    include_once "includes/util_user_functions.php";
+?>
  <?php  include "includes/header.php"; ?>
 
 
@@ -13,6 +16,7 @@
  if (isset($_SESSION['error'])) {
     $message = $_SESSION['error'];
     echo '<p class="text-center" style="color:red">'."$message".'</p>';
+    unset($_SESSION['error']);
  }
 
  if (isset($_POST['submit'])) {
@@ -20,17 +24,7 @@
         $user_name = $_POST['user_name'];
         $password = $_POST['user_password'];
         $user_email = $_POST['user_email'];
-
-        $query = "SELECT rand_salt FROM users";
-        $stmt = $pdo->query($query);
-
-        if (!$stmt) {
-            die("Query failed" . PDOException($exception));
-        }
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $salt = $row['rand_salt'];
-        $password = crypt($password, $salt);
+        $password = encryptPassword($password);
 
         $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES (:unm, :em, :pass, :role)";
         $stmt = $pdo->prepare($query);

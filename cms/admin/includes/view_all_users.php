@@ -4,7 +4,8 @@
                                 <?php 
                                     if (isset($_SESSION['success'])) {
                                         $message = $_SESSION['success'];
-                                        echo '<h3 style="color:green">'."$message".'</h3>';
+                                        echo '<p  class="text-center" style="color:green">'."$message".'</p>';
+                                        unset($_SESSION['success']);
                                     }
                                 ?>
                                     <thead>

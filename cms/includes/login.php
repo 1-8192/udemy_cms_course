@@ -1,11 +1,12 @@
 <?php 
     //login logic for website redirected from sidebar well
     include_once "db.php";
+    include_once "util_user_functions.php";
     session_start();
 
     if (isset($_POST['login'])) {
         $user_name = $_POST['user_name'];
-        $password = $_POST['password'];
+        $password = encryptPassword($_POST['user_password']);
 
         $query = "SELECT * FROM users WHERE user_name = :name AND user_password = :pass";
         $stmt = $pdo->prepare($query);
