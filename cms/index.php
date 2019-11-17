@@ -10,6 +10,12 @@
 
     <!-- Page Content -->
     <div class="container">
+        <?php 
+            if (isset($_SESSION['success'])) {
+                $message = $_SESSION['success'];
+                echo '<p class="text-center" style="color:green">'."$message".'</p>';
+            }
+        ?>
 
         <div class="row">
 

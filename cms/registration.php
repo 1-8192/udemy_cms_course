@@ -10,6 +10,11 @@
     <!-- Page Content -->
     <div class="container">
 <?php 
+ if (isset($_SESSION['error'])) {
+    $message = $_SESSION['error'];
+    echo '<p class="text-center" style="color:red">'."$message".'</p>';
+ }
+
  if (isset($_POST['submit'])) {
      if (!empty($_POST['user_name']) && !empty($_POST['password']) && !empty($_POST['user_email'])) {
         $user_name = $_POST['user_name'];
@@ -33,7 +38,12 @@
             ':pass' => $password,
             ':role' => 'subscriber'
         ));
+        $_SESSION['success'] = "User succesfully registered";
+        header("Location: index.php");
 
+    } else {
+        $_SESSION['error'] = "Cannot accept empty fields";
+        header("Location: registration.php");
     }
 }
 ?>
