@@ -16,9 +16,9 @@
  }
 
  if (isset($_POST['submit'])) {
-     if (!empty($_POST['user_name']) && !empty($_POST['password']) && !empty($_POST['user_email'])) {
+     if (!empty($_POST['user_name']) && !empty($_POST['user_password']) && !empty($_POST['user_email'])) {
         $user_name = $_POST['user_name'];
-        $password = $_POST['password'];
+        $password = $_POST['user_password'];
         $user_email = $_POST['user_email'];
 
         $query = "SELECT rand_salt FROM users";
@@ -28,9 +28,11 @@
             die("Query failed" . PDOException($exception));
         }
 
-        $rand_salt = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $salt = $row['rand_salt'];
+        $password = crypt($password, $salt);
 
-        $query = "INSERT INTO users (user_name, user_email, user_password, user_role VALUES (:unm, :em, :pass, :role))";
+        $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES (:unm, :em, :pass, :role)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':unm' => $user_name,
