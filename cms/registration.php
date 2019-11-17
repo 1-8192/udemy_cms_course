@@ -24,7 +24,16 @@
         }
 
         $rand_salt = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
+        $query = "INSERT INTO users (user_name, user_email, user_password, user_role VALUES (:unm, :em, :pass, :role))";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(
+            ':unm' => $user_name,
+            ':em' => $user_email,
+            ':pass' => $password,
+            ':role' => 'subscriber'
+        ));
+
     }
 }
 ?>
