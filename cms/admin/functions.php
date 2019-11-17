@@ -1,6 +1,7 @@
 <?php 
     //logic for posting new category to db
     include_once "../includes/db.php";
+    include_once "../includes/util_user_functions.php";
 
     function insert_categories() {
         global $pdo;
@@ -237,7 +238,7 @@
             $user_last_name = $_POST['user_last_name'];
             $user_email = $_POST['user_email'];
             $user_name = $_POST['user_name'];
-            $user_password = $_POST['user_password'];
+            $user_password = encryptPassword($_POST['user_password']);
             $user_role = $_POST['user_role'];
             $user_image = $_FILES['user_image']['name'];
             $user_image_temp = $_FILES['user_image']['tmp_name'];
@@ -288,7 +289,7 @@
         $user_last_name = $_POST['user_last_name'];
         $user_email = $_POST['user_email'];
         $user_name = $_POST['user_name'];
-        $user_password = $_POST['user_password'];
+        $user_password = encryptPassword($_POST['user_password']);
         $user_role = $_POST['user_role'];
         $user_image = $_FILES['user_image']['name'];
         $user_image_temp = $_FILES['user_image']['tmp_name'];
