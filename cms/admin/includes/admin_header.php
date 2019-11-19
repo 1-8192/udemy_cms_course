@@ -38,6 +38,8 @@
     <![endif]-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+    <link href="css/styles.css" rel="stylesheet">
+
     <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
 
 </head>
