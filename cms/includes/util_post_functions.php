@@ -9,4 +9,12 @@
         $stmt->execute(array(':pid' => $id));
     }
 
+    function fetchPostCount() {
+        global $pdo;
+
+        $query = "SELECT * FROM posts";
+        $stmt = $pdo->query($query);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return count($rows);
+    }
 ?>

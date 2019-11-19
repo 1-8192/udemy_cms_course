@@ -41,7 +41,7 @@
                 $cat_title = get_category_name_from_id($row['category_id']);
                 $post_id = $row['post_id'];
 
-                echo('<tr><td><input type="checkbox" class="checkBoxes" name="checkBoxArray[]" value="'."$post_id".'"></td><td>'."$row[post_id]".'</td><td>'."$row[post_author]".'</td><td>'."$row[post_title]".'</td><td>'."$cat_title".'</td><td>'."$row[post_status]".'</td><td><img class="img-responsive" src="../images/'."$row[post_image]".'"></td><td>'."$row[post_tags]".'</td><td>'."$row[post_comment_count]".'</td><td>'."$row[post_date]".'</td><td><a href="../post.php?p_id='."$row[post_id]".'">View Post</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Edit</a></td><td><a href="posts.php?delete='."$row[post_id]".'">Delete</a></td></tr>');
+                echo('<tr><td><input type="checkbox" class="checkBoxes" name="checkBoxArray[]" value="'."$post_id".'"></td><td>'."$row[post_id]".'</td><td>'."$row[post_author]".'</td><td>'."$row[post_title]".'</td><td>'."$cat_title".'</td><td>'."$row[post_status]".'</td><td><img class="img-responsive" src="../images/'."$row[post_image]".'"></td><td>'."$row[post_tags]".'</td><td>'."$row[post_comment_count]".'</td><td>'."$row[post_date]".'</td><td>'."$row[post_views]".'</td><td><a href="../post.php?p_id='."$row[post_id]".'">View Post</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Edit</a></td><td><a href="posts.php?delete='."$row[post_id]".'">Delete</a></td></tr>');
             }
         }
     }

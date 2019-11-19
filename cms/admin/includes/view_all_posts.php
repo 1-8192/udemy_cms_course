@@ -62,6 +62,7 @@
                     <th>Tags</th>
                     <th>Comments</th>
                     <th>Date</th>
+                    <th>Hits</th>
                     <th>View</th>
                     <th>Edit</th>
                     <th>Delete</th>

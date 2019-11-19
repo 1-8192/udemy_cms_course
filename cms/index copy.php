@@ -26,26 +26,8 @@
                     Blog Articles
         
                 <?php 
-                    include_once "includes/util_post_functions.php";
-
-                    //logic for pagination
-                    if (isset($_GET['page'])) {
-                        $page = $_GET['page'];
-                    } else {
-                        $page = "";
-                    }
-
-                    if ($page == "" || $page == 1) {
-                        $page_1 = 0;
-                    } else {
-                        $page_1 = ($page * 5) - 5;
-                    }
-
-                    $total_posts = fetchPostCount();
-                    $post_quotient = ceil($total_posts / 5);
-
                     //grabbing posts and looping through to populate posts in index
-                    $query = "SELECT * FROM posts WHERE post_status = 'published' LIMIT $page_1, 5";
+                    $query = "SELECT * FROM posts WHERE post_status = 'published'";
                     $stmt = $pdo->query($query);
                     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -93,25 +75,17 @@
 
         <hr>
         </div>
-        <!-- pagination for additional posts -->
-        <ul class="pager">
-            <?php 
-                for ($i = 1; $i <= $post_quotient; $i++) {
-                    if ($i == $page) {
-                        echo "<li><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
-                    } else {
-                        echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
-                    }
-                }
-            ?>         
-        </ul>
         <!-- Footer -->
         <?php include_once "includes/footer.php"; ?>
 
     </div>
     <!-- /.container -->
 
-   
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
 </body>
 
