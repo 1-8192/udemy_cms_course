@@ -16,8 +16,12 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
                 <?php 
+                    include_once "includes/util_post_functions.php";
+
                     if (isset($_GET['p_id'])) {
                         $post_id = $_GET['p_id'];
+                        //function from utils that raises view count
+                        incrementPostViews($post_id);
                     
                         $query = "SELECT * FROM posts WHERE post_id = :pid";
                         $stmt = $pdo->prepare($query);
@@ -29,6 +33,8 @@
                         $post_date = $row['post_date'];
                         $post_image = $row['post_image'];
                         $post_body = $row['post_body'];
+                    } else {
+                        header("Location: index.php");
                     }
                 ?>
                 <!-- First Blog Post -->
