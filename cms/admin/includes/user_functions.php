@@ -4,7 +4,7 @@
     //setting up sessions to keep track of users online
     function getOnlineUserCount() {
         global $pdo;
-        
+
         $session = session_id();
         $time = time();
         $time_out_in_seconds = 60;

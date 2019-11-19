@@ -16,5 +16,17 @@ $(document).ready(function() {
     $('#load-screen').delay(500).fadeOut(500, function() {
         $(this).remove(); 
     })
+
+    //jquery for finding online user countn without refresh
+    function loadUsersOnline() {
+        $.get("user_functions.php?getOnlineUserCount=result", function(data){
+            $(".users-online").text(data);
+        });
+    }
+
+    setInterval(function(){
+        loadUsersOnline();
+    },500);
+
 });
 
