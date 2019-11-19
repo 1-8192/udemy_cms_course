@@ -1,4 +1,5 @@
 <!-- Navigation -->
+<?php include_once "user_functions.php"; ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -12,6 +13,7 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
+                <li>Users Online: <?php echo getOnlineUserCount(); ?></li>
                 <li><a href="../index.php">Home</a></li>
                 <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>

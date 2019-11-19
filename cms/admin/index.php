@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include_once "includes/admin_header.php" ?>
+<?php 
+    include_once "includes/admin_header.php";
+?>
 
 <body>
 
@@ -10,7 +12,6 @@
         <div id="page-wrapper">
 
             <div class="container-fluid">
-
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
