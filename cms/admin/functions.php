@@ -230,18 +230,4 @@
             }
         }
     }
-
-    //delete function for deleting user from db
-    function delete_user() {
-        global $pdo;
-        if (isset($_GET['delete'])) {
-            $user_id = $_GET['delete'];
-
-            $query = "DELETE FROM users WHERE user_id = :uid";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute(array(':uid' => $user_id));
-            //refresh after delete
-            header("Location: users.php");
-        }
-    }
 ?>

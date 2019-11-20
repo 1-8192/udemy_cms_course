@@ -51,15 +51,7 @@
     </div>
     <div class="form-group">
         <label for="user_password">Password</label>
-        <input type="password" class="form-control" name="user_password" value="<?php echo $user_password; ?>">
-    </div>
-    <div class="form-group">
-        <label for="user_role">Access</label>
-        <select name="user_role" id="">
-            <option value="<?php echo $user_role; ?>"><?php echo $user_role ?></option>
-            <option value="admin">Admin</option>
-            <option value="subscriber">Subscriber</opton>
-        </select>
+        <input autocomplete="off" type="password" class="form-control" name="user_password">
     </div>
     <div class="form-group">
         <label for="user_image">User Image</label></br>

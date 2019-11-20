@@ -3,7 +3,7 @@
 
 <?php 
     include_once "includes/admin_header.php";
-    include_once "./functions.php";
+    include_once "./includes/user_functions.php";
 
     if (isset($_POST['edit_user'])) {
         update_user($_SESSION['user_id']);
@@ -49,15 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="user_password">Password</label>
-                                <input type="password" class="form-control" name="user_password" value="<?php echo $_SESSION['user_password'];; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="user_role">Access</label>
-                                <select name="user_role" id="">
-                                    <option value="<?php echo $_SESSION['user_role'];; ?>"><?php echo $_SESSION['user_role']; ?></option>
-                                    <option value="admin">Admin</option>
-                                    <option value="subscriber">Subscriber</opton>
-                                </select>
+                                <input autocomplete="off" type="password" class="form-control" name="user_password">
                             </div>
                             <div class="form-group">
                                 <label for="user_image">User Image</label></br>

@@ -2,6 +2,7 @@
                             <div class="col-xs-6">
                                 <table class="table table-bordered table-hover">
                                 <?php 
+                                    include_once "./includes/user_functions.php";
                                     if (isset($_SESSION['success'])) {
                                         $message = $_SESSION['success'];
                                         echo '<p  class="text-center" style="color:green">'."$message".'</p>';
