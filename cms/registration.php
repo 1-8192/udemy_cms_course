@@ -1,6 +1,5 @@
 <?php  
     include "includes/db.php"; 
-    include_once "includes/util_user_functions.php";
 ?>
  <?php  include "includes/header.php"; ?>
 
@@ -24,7 +23,7 @@
         $user_name = $_POST['user_name'];
         $password = $_POST['user_password'];
         $user_email = $_POST['user_email'];
-        $password = encryptPassword($password);
+        $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 
         $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES (:unm, :em, :pass, :role)";
         $stmt = $pdo->prepare($query);

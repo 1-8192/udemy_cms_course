@@ -1,5 +1,6 @@
 <?php 
     include_once "./functions.php";
+    include_once "./includes/user_functions.php";
     
     if (isset($_POST['edit_user'])) {
         update_user($_GET['u_id']);
