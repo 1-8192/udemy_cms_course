@@ -110,7 +110,7 @@
         global $pdo;
             $post_title = $_POST['post_title'];
             $post_category_id = $_POST['post_category'];
-            $post_author = $_POST['author'];
+            $post_user_id = $_POST['post_user'];
             $post_image = $_FILES['post_image']['name'];
             $post_image_temp = $_FILES['post_image']['tmp_name'];
             $post_tags = $_POST['post_tags'];
@@ -123,12 +123,12 @@
             move_uploaded_file($post_image_temp, "../images/$post_image");
     
             try {
-            $query = "INSERT INTO posts (category_id, post_title, post_author, post_date, post_image, post_body, post_tags, post_comment_count, post_status) VALUES (:cid, :title, :author, :date, :image, :body, :tags, :coms, :status)";
+            $query = "INSERT INTO posts (category_id, post_title, post_user_id, post_date, post_image, post_body, post_tags, post_comment_count, post_status) VALUES (:cid, :title, :puid, :date, :image, :body, :tags, :coms, :status)";
             $stmt = $pdo->prepare($query);
             $stmt->execute(array(
                 ':cid' => $post_category_id,
                 ':title' => $post_title,
-                ':author' => $post_author,
+                ':puid' => $post_user_id,
                 ':date' => $post_date,
                 ':image' => $post_image,
                 ':body' => $post_body,

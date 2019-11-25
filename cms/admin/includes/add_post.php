@@ -34,8 +34,8 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="author">Post Author</label>
-        <select name="author" id="">
+        <label for="post_user">Post Author</label>
+        <select name="post_user" id="">
             <?php 
                 $query = "SELECT * FROM users";
                 $stmt = $pdo->query($query);
