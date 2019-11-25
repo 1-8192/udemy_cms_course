@@ -1,5 +1,6 @@
 <?php 
     include_once "./functions.php";
+    include_once "post_functions.php";
     
     if (isset($_POST['edit_post'])) {
         update_post($_GET['p_id']);
@@ -19,6 +20,7 @@
 
         $post_title = $row['post_title'];
         $post_category_id = $row['category_id'];
+        $post_user_id = $row['post_user_id'];
         $post_author = $row['post_author'];
         $post_image = $row['post_image'];
         $post_tags = $row['post_tags'];
@@ -40,6 +42,8 @@
     <div class="form-group">
         <select name="post_category" id="">
             <?php 
+                $cat_name = get_category_name_from_id($post_category_id);
+                echo "<option selected='selected' value='$post_category_id'>{$cat_name}</option>";
                 $query = "SELECT * FROM categories";
                 $stmt = $pdo->query($query);
                 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -48,15 +52,35 @@
                     foreach($rows as $row) {
                         $cat_id = $row['cat_id'];
                         $cat_title = $row['cat_title'];
+                        if ($cat_id !== $post_category_id) {
                         echo "<option value='$cat_id'>{$cat_title}</option>";
+                        }
                     }
                 }
             ?>
         </select>
     </div>
     <div class="form-group">
-        <label for="author">Post Author</label>
-        <input type="text" class="form-control" name="author" value="<?php echo $post_author ?>">
+        <label for="post_user">Post Author</label>
+        <select name="post_user" id="">
+            <?php 
+                $user_name = getUserNameFromId($post_user_id); 
+                echo "<option selected='selected' value='$post_user_id'>{$user_name}</option>";
+                $query = "SELECT * FROM users";
+                $stmt = $pdo->query($query);
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+                if (count($rows) > 0) {
+                    foreach($rows as $row) {
+                        $user_id = $row['user_id'];
+                        $user_name = $row['user_name'];
+                        if ($user_id !== $post_user_id) {
+                        echo "<option value='$user_id'>{$user_name}</option>";
+                        }
+                    }
+                }
+            ?>
+        </select>
     </div>
     <div class="form-group">
         <select name="post_status" id="">
@@ -81,7 +105,7 @@
     </div>
     <div class="form-group">
         <label for="post_body">Post Body</label>
-        <textarea class="form-control" name="post_body" cols="30" rows="10" id="body"><?php echo $post_title ?></textarea>
+        <textarea class="form-control" name="post_body" cols="30" rows="10" id="body"><?php echo $post_body ?></textarea>
     </div>
     <div class="form-group">
         <input class="btn btn-primary" type="submit" name="edit_post" value="Update Post">
