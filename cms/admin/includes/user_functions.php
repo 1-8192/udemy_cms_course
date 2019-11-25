@@ -128,4 +128,13 @@
             header("Location: users.php");
         }
     }
+
+    //return user name from given id
+    function getUserNameFromId($id) {
+        global $pdo;
+        $query = "SELECT * FROM users WHERE user_id = $id";
+        $stmt = $pdo->query($query);
+        $user_row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user_row['user_name'];
+    }
 ?>

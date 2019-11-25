@@ -1,5 +1,6 @@
 <?php
     include_once "../includes/db.php";
+    include_once "user_functions.php";
 
     //functions related to posts in database 
 
@@ -40,7 +41,7 @@
 
                 $cat_title = get_category_name_from_id($row['category_id']);
                 $post_id = $row['post_id'];
-                $post_author = $row['post_author'];
+                $post_author = getUserNameFromId($row['post_user_id']);
                 $post_title = $row['post_title'];
                 $post_status = $row['post_status'];
                 $post_image = $row['post_image'];
