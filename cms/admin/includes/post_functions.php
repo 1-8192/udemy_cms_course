@@ -40,8 +40,29 @@
 
                 $cat_title = get_category_name_from_id($row['category_id']);
                 $post_id = $row['post_id'];
+                $post_author = $row['post_author'];
+                $post_title = $row['post_title'];
+                $post_status = $row['post_status'];
+                $post_image = $row['post_image'];
+                $post_date = $row['post_date'];
+                $post_tags = $row['post_tags'];
+                $post_comment_count = $row['post_comment_count'];
+                $post_views = $row['post_views'];
 
-                echo('<tr><td><input type="checkbox" class="checkBoxes" name="checkBoxArray[]" value="'."$post_id".'"></td><td>'."$row[post_id]".'</td><td>'."$row[post_author]".'</td><td>'."$row[post_title]".'</td><td>'."$cat_title".'</td><td>'."$row[post_status]".'</td><td><img class="img-responsive" src="../images/'."$row[post_image]".'"></td><td>'."$row[post_tags]".'</td><td>'."$row[post_comment_count]".'</td><td>'."$row[post_date]".'</td><td>'."$row[post_views]".'</td><td><a href="../post.php?p_id='."$row[post_id]".'">View Post</a></td><td><a href="posts.php?source=edit_post&p_id='."$row[post_id]".'">Edit</a></td><td><a href="posts.php?delete='."$row[post_id]".'">Delete</a></td></tr>');
+                echo "<tr><td><input type='checkbox' class='checkBoxes' name='checkBoxArray[]' value={$post_id}></td>";
+                echo "<td>{$post_id}</td>";
+                echo "<td>{$post_author}</td>";
+                echo "<td>{$post_title}</td>";
+                echo "<td>{$cat_title}</td>";
+                echo "<td>{$post_status}</td>";
+                echo "<td><img class='img-responsive' src='../images/{$post_image}'></td>";
+                echo "<td>{$post_tags}</td>";
+                echo "<td>{$post_comment_count}</td>";
+                echo "<td>{$post_date}</td>";
+                echo "<td>{$post_views}</td>";
+                echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a></td>";
+                echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>"; 
+                echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td></tr>";
             }
         }
     }
@@ -82,5 +103,44 @@
                 return $exception;
             }
 
+    }
+
+    //add post function to insert new post in db
+    function insert_post() {
+        global $pdo;
+            $post_title = $_POST['post_title'];
+            $post_category_id = $_POST['post_category'];
+            $post_author = $_POST['author'];
+            $post_image = $_FILES['post_image']['name'];
+            $post_image_temp = $_FILES['post_image']['tmp_name'];
+            $post_tags = $_POST['post_tags'];
+            $post_body = $_POST['post_body'];
+            $post_date = date('d-m-y');
+            $post_comment_count = 0;
+            $post_status = $_POST['post_status'];
+    
+            //moving file name for image to images folder
+            move_uploaded_file($post_image_temp, "../images/$post_image");
+    
+            try {
+            $query = "INSERT INTO posts (category_id, post_title, post_author, post_date, post_image, post_body, post_tags, post_comment_count, post_status) VALUES (:cid, :title, :author, :date, :image, :body, :tags, :coms, :status)";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute(array(
+                ':cid' => $post_category_id,
+                ':title' => $post_title,
+                ':author' => $post_author,
+                ':date' => $post_date,
+                ':image' => $post_image,
+                ':body' => $post_body,
+                ':tags' => $post_tags,
+                ':coms' => $post_comment_count,
+                ':status' => $post_status
+                ));
+                $_SESSION['success'] = "Post added";
+                header("Location: posts.php");
+            } 
+            catch(PDOException $exception) {
+                return $exception;
+            }
     }
 ?>

@@ -56,45 +56,6 @@
         return $cat_row['cat_title'];
     }
 
-    //add post function to insert new post in db
-    function insert_post() {
-        global $pdo;
-            $post_title = $_POST['post_title'];
-            $post_category_id = $_POST['post_category'];
-            $post_author = $_POST['author'];
-            $post_image = $_FILES['post_image']['name'];
-            $post_image_temp = $_FILES['post_image']['tmp_name'];
-            $post_tags = $_POST['post_tags'];
-            $post_body = $_POST['post_body'];
-            $post_date = date('d-m-y');
-            $post_comment_count = 0;
-            $post_status = $_POST['post_status'];
-    
-            //moving file name for image to images folder
-            move_uploaded_file($post_image_temp, "../images/$post_image");
-    
-            try {
-            $query = "INSERT INTO posts (category_id, post_title, post_author, post_date, post_image, post_body, post_tags, post_comment_count, post_status) VALUES (:cid, :title, :author, :date, :image, :body, :tags, :coms, :status)";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute(array(
-                ':cid' => $post_category_id,
-                ':title' => $post_title,
-                ':author' => $post_author,
-                ':date' => $post_date,
-                ':image' => $post_image,
-                ':body' => $post_body,
-                ':tags' => $post_tags,
-                ':coms' => $post_comment_count,
-                ':status' => $post_status
-                ));
-                $_SESSION['success'] = "Post added";
-                header("Location: posts.php");
-            } 
-            catch(PDOException $exception) {
-                return $exception;
-            }
-    }
-
     //delete function for deleting post from db
     function delete_post() {
         global $pdo;

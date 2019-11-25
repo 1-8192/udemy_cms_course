@@ -1,5 +1,5 @@
 <?php 
-    include_once "./functions.php";
+    include_once "post_functions.php";
     
     if (isset($_POST['add_post'])) {
         insert_post();
