@@ -35,7 +35,21 @@
     </div>
     <div class="form-group">
         <label for="author">Post Author</label>
-        <input type="text" class="form-control" name="author">
+        <select name="author" id="">
+            <?php 
+                $query = "SELECT * FROM users";
+                $stmt = $pdo->query($query);
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+                if (count($rows) > 0) {
+                    foreach($rows as $row) {
+                        $user_id = $row['user_id'];
+                        $user_name = $row['user_name'];
+                        echo "<option value='$user_id'>{$user_name}</option>";
+                    }
+                }
+            ?>
+        </select>
     </div>
     <div class="form-group">
         <label for="post_status">Post Status</label>
