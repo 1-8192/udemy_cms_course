@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include_once "includes/admin_header.php" ?>
+<?php 
+    include_once "includes/admin_header.php";
+?>
 
 <body>
 
@@ -19,6 +21,8 @@
                             <small>Posts</small>
                         </h1>
                         <?php 
+                            include_once "includes/delete_modal.php";
+                            
                             if (isset($_GET['source'])) {
                                 $source = $_GET['source'];
                             } else {
