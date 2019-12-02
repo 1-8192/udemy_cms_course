@@ -48,22 +48,22 @@
         <div class="row">
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
-                <h1>Register</h1>
-                    <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+                <h1>Contact Us</h1>
+                    <form role="form" action="contact.php" method="post" id="login-form" autocomplete="off">
                          <div class="form-group">
                             <label for="user_email" class="sr-only">Email</label>
                             <input type="email" name="user_email" id="email" class="form-control" placeholder="somebody@example.com">
                         </div>
                         <div class="form-group">
-                            <label for="user_name" class="sr-only">Subject</label>
+                            <label for="subject" class="sr-only">Subject</label>
                             <input type="text" name="subject" id="subject" class="form-control" placeholder="Topic">
                         </div>
                          <div class="form-group">
                             <label for="body" class="sr-only">Message</label>
-                            <textarea name="body" class="form-control" placeholder="I need help..." cols="30" rows="10"></textarea>
+                            <textarea name="body" class="form-control" placeholder="I need help..." cols="50" rows="10"></textarea>
                         </div>
                 
-                        <input type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register">
+                        <input type="submit" name="submit" id="btn-contact" class="btn btn-custom btn-lg btn-block" value="Submit">
                     </form>
                  
                 </div>
