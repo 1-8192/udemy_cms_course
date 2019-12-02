@@ -19,27 +19,27 @@
     unset($_SESSION['error']);
  }
 
- if (isset($_POST['submit'])) {
-     if (!empty($_POST['user_name']) && !empty($_POST['user_password']) && !empty($_POST['user_email'])) {
-        $user_name = $_POST['user_name'];
-        $password = $_POST['user_password'];
-        $user_email = $_POST['user_email'];
-        $password = encryptPassword($password);
+ if (isset($_SESSION['success'])) {
+    $message = $_SESSION['success'];
+    echo '<p class="text-center" style="color:green">'."$message".'</p>';
+    unset($_SESSION['success']);
+ }
 
-        $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES (:unm, :em, :pass, :role)";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute(array(
-            ':unm' => $user_name,
-            ':em' => $user_email,
-            ':pass' => $password,
-            ':role' => 'subscriber'
-        ));
-        $_SESSION['success'] = "User succesfully registered";
-        header("Location: index.php");
+ if (isset($_POST['submit'])) {
+     if (!empty($_POST['email']) && !empty($_POST['subject']) && !empty($_POST['body'])) {
+        $header = "From:".$_POST['email'];
+        $subject = $_POST['subject'];
+        $body = $_POST['body'];
+
+        $msg = wordwrap($subject, 70, "\r\n");
+        mail("myemail@email.com", $subject, $msg, $header);
+
+        $_SESSION['success'] = "Email sent";
+        header("Location: contact.php");
 
     } else {
         $_SESSION['error'] = "Cannot accept empty fields";
-        header("Location: registration.php");
+        header("Location: contact.php");
     }
 }
 ?>
@@ -49,10 +49,10 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Contact Us</h1>
-                    <form role="form" action="contact.php" method="post" id="login-form" autocomplete="off">
+                    <form role="form" action="contact.php" method="post" autocomplete="off">
                          <div class="form-group">
-                            <label for="user_email" class="sr-only">Email</label>
-                            <input type="email" name="user_email" id="email" class="form-control" placeholder="somebody@example.com">
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com">
                         </div>
                         <div class="form-group">
                             <label for="subject" class="sr-only">Subject</label>
