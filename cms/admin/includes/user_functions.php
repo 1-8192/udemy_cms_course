@@ -140,7 +140,7 @@
         return $user_row['user_name'];
     }
 
-    function is_admin($username = "") {
+    function is_admin($username) {
         global $pdo;
         $query = "SELECT user_role FROM users WHERE user_name = '$username'";
         $stmt = $pdo->query($query);

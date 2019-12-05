@@ -1,19 +1,20 @@
 <?php 
     include_once "db.php";
 
-    //gets rand_salt value for encryption
-    function encryptPassword($pass) {
+    //validation for unique username
+    function username_exists($username) {
         global $pdo;
-        $query = "SELECT rand_salt FROM users";
-        $stmt = $pdo->query($query);
+        $query = "SELECT user_name FROM users WHERE user_name = :unm";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(
+            ':unm' => $username
+        ));
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (!$stmt) {
-            die("Query failed" . PDOException($exception));
+        if (count($rows) > 0) {
+            return true;
+        } else {
+            return false;
         }
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $salt = $row['rand_salt'];
-
-        return crypt($pass, $salt);
     }
 ?>

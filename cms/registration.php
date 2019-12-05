@@ -21,22 +21,26 @@
 
  if (isset($_POST['submit'])) {
      if (!empty($_POST['user_name']) && !empty($_POST['user_password']) && !empty($_POST['user_email'])) {
-        $user_name = $_POST['user_name'];
-        $password = $_POST['user_password'];
-        $user_email = $_POST['user_email'];
-        $password = crypt($password, '$2a$07$YourSaltIsA22ChrString$');
+        if (username_exists($_POST['user_name'])) {
+            $_SESSION['error'] = "Username already exists";
+            header("Location: registration.php");
+        } else {
+            $user_name = $_POST['user_name'];
+            $password = $_POST['user_password'];
+            $user_email = $_POST['user_email'];
+            $password = crypt($password, '$2a$07$YourSaltIsA22ChrString$');
 
-        $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES (:unm, :em, :pass, :role)";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute(array(
-            ':unm' => $user_name,
-            ':em' => $user_email,
-            ':pass' => $password,
-            ':role' => 'subscriber'
-        ));
-        $_SESSION['success'] = "User succesfully registered";
-        header("Location: index.php");
-
+            $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES (:unm, :em, :pass, :role)";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute(array(
+                ':unm' => $user_name,
+                ':em' => $user_email,
+                ':pass' => $password,
+                ':role' => 'subscriber'
+            ));
+            $_SESSION['success'] = "User succesfully registered";
+            header("Location: index.php");
+        }
     } else {
         $_SESSION['error'] = "Cannot accept empty fields";
         header("Location: registration.php");
