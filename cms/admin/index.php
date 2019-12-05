@@ -3,6 +3,7 @@
 
 <?php 
     include_once "includes/admin_header.php";
+    include_once "functions.php";
 ?>
 
 <body>
@@ -33,13 +34,7 @@
                                         <i class="fa fa-file-text fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                <?php
-                                    $query = "SELECT * FROM posts";
-                                    $stmt = $pdo->prepare($query);
-                                    $stmt->execute();
-                                    $post_count = $stmt->rowCount();
-
-                                ?>
+                                <?php $post_count = get_count('posts'); ?>
                                 <div class='huge'><?php echo $post_count; ?></div>
                                         <div>Posts</div>
                                     </div>
@@ -62,13 +57,7 @@
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                    <?php
-                                    $query = "SELECT * FROM comments";
-                                    $stmt = $pdo->prepare($query);
-                                    $stmt->execute();
-                                    $com_count = $stmt->rowCount();
-
-                                    ?>
+                                    <?php $com_count = get_count('comments'); ?>
                                     <div class='huge'><?php echo $com_count; ?></div>
                                     <div>Comments</div>
                                     </div>
@@ -91,13 +80,7 @@
                                         <i class="fa fa-user fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                    <?php
-                                    $query = "SELECT * FROM users";
-                                    $stmt = $pdo->prepare($query);
-                                    $stmt->execute();
-                                    $user_count = $stmt->rowCount();
-
-                                    ?>
+                                    <?php $user_count = get_count('users'); ?>
                                     <div class='huge'><?php echo $user_count; ?></div>
                                         <div> Users</div>
                                     </div>
@@ -120,13 +103,7 @@
                                         <i class="fa fa-list fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                    <?php
-                                    $query = "SELECT * FROM categories";
-                                    $stmt = $pdo->prepare($query);
-                                    $stmt->execute();
-                                    $cat_count = $stmt->rowCount();
-
-                                    ?>
+                                    <?php $cat_count = get_count('categories'); ?>
                                         <div class='huge'><?php echo $cat_count; ?></div>
                                         <div>Categories</div>
                                     </div>

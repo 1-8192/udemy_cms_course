@@ -147,4 +147,12 @@
             }
         }
     }
+
+    function get_count($table) {
+        global $pdo;
+        $query = "SELECT * FROM " . $table;
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
 ?>
