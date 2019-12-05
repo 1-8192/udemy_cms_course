@@ -21,7 +21,12 @@
 
                         if (count($rows) > 0) {
                             foreach($rows as $row) {
-                                echo('<li><a href="#">'."$row[cat_title]".'</a></li>');
+                                $category_class= "";
+
+                                if(isset($_GET['category']) && $_GET['category'] == $row['cat_id']) {
+                                    $category_class = 'active';
+                                } 
+                                echo('<li class='."$category_class".'><a href="#">'."$row[cat_title]".'</a></li>');
                             }
                     }
                     ?>
