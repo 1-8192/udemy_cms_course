@@ -24,7 +24,7 @@
         $user_name = $_POST['user_name'];
         $password = $_POST['user_password'];
         $user_email = $_POST['user_email'];
-        $password = encryptPassword($password);
+        $password = crypt($password, '$2a$07$YourSaltIsA22ChrString$');
 
         $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES (:unm, :em, :pass, :role)";
         $stmt = $pdo->prepare($query);

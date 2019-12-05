@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include_once "includes/admin_header.php" ?>
+<?php 
+    include_once "includes/admin_header.php";
+    include_once "includes/user_functions.php";
+
+    if (!is_admin($_SESSION['user_name'])) {
+        header("Location: ../index.php");
+    }
+?>
 
 <body>
 

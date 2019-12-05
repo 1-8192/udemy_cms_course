@@ -122,7 +122,7 @@
                 <!-- /.row -->
 
                 <?php 
-                    //queries for graph data
+                    //queries for graph data in functions.php
 
                     //draft posts
                     $post_draft_count = check_status('posts', 'post_status', 'draft');

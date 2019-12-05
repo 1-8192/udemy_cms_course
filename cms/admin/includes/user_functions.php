@@ -139,4 +139,17 @@
         $user_row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user_row['user_name'];
     }
+
+    function is_admin($username = "") {
+        global $pdo;
+        $query = "SELECT user_role FROM users WHERE user_name = '$username'";
+        $stmt = $pdo->query($query);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row['user_role'] == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    }
 ?>
