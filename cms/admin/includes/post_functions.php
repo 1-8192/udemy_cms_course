@@ -63,7 +63,8 @@
                 echo "<td>{$post_views}</td>";
                 echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a></td>";
                 echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>"; 
-                echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td></tr>";
+                echo "<td><a rel='$post_id' href='' class='delete_link' data-toggle='modal' data-target='#myModal'>Delete</a></td></tr>";
+                // echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td></tr>";
             }
         }
     }

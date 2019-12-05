@@ -82,3 +82,17 @@
         </table>
         </form>
 </div>
+
+<script src="js/jquery.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $(".delete_link").on('click', function() {
+            let id = $(this).attr("rel");
+            let delete_url = "posts.php?delete="+id+" ";
+            
+            $(".modal-delete-link").attr("href", delete_url);
+
+        });
+    });
+</script>
