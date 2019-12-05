@@ -34,4 +34,29 @@
             return false;
         }
     }
+
+    //register new user in db
+    function register_user($username, $email, $password) {
+        global $pdo;
+        if (username_exists($username)) {
+            $_SESSION['error'] = "Username already exists";
+            header("Location: registration.php");
+        } else if (email_exists($email)) {
+            $_SESSION['error'] = "Email already exists";
+            header("Location: registration.php");
+        } else {
+            $password = crypt($password, '$2a$07$YourSaltIsA22ChrString$');
+
+            $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES (:unm, :em, :pass, :role)";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute(array(
+                ':unm' => $username,
+                ':em' => $email,
+                ':pass' => $password,
+                ':role' => 'subscriber'
+            ));
+            $_SESSION['success'] = "User succesfully registered";
+            header("Location: index.php");
+        } 
+    }
 ?>
