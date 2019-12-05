@@ -155,4 +155,12 @@
         $stmt->execute();
         return $stmt->rowCount();
     }
+
+    function check_status($table, $column, $value) {
+        global $pdo;
+        $query = "SELECT * FROM $table WHERE $column = '$value' ";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
 ?>

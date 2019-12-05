@@ -125,22 +125,13 @@
                     //queries for graph data
 
                     //draft posts
-                    $query = "SELECT * FROM posts WHERE post_status = 'draft'";
-                    $stmt = $pdo->prepare($query);
-                    $stmt->execute();
-                    $post_draft_count = $stmt->rowCount();
+                    $post_draft_count = check_status('posts', 'post_status', 'draft');
 
-                    //unapproved comments
-                    $query = "SELECT * FROM comments WHERE comment_status = 'pending'";
-                    $stmt = $pdo->prepare($query);
-                    $stmt->execute();
-                    $com_count_unap = $stmt->rowCount();
+                    //unapproved comments 
+                    $com_count_unap = check_status('comments', 'comment_status', 'pending');
 
                     //non-admin users
-                    $query = "SELECT * FROM users WHERE user_role = 'subscriber'";
-                    $stmt = $pdo->prepare($query);
-                    $stmt->execute();
-                    $user_count_sub = $stmt->rowCount();
+                    $user_count_sub = check_status('users', 'user_role', 'subscriber');
                 ?>
 
                 <div class="row">
