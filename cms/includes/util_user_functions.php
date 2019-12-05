@@ -17,4 +17,21 @@
             return false;
         }
     }
+
+    //validation for unique email
+    function email_exists($email) {
+        global $pdo;
+        $query = "SELECT user_email FROM users WHERE user_email = :em";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(
+            ':em' => $email
+        ));
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($rows) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 ?>

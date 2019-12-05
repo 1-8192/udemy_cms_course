@@ -24,6 +24,9 @@
         if (username_exists($_POST['user_name'])) {
             $_SESSION['error'] = "Username already exists";
             header("Location: registration.php");
+        } else if (email_exists($_POST['user_email'])) {
+            $_SESSION['error'] = "Email already exists";
+            header("Location: registration.php");
         } else {
             $user_name = $_POST['user_name'];
             $password = $_POST['user_password'];
