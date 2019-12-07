@@ -59,4 +59,12 @@
             header("Location: index.php");
         } 
     }
+
+    function isLoggedIn() {
+        if (isset($_SESSION['user_role'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 ?>

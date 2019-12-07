@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+    session_start(); 
+    include_once "util_user_functions.php";
+    ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,9 +39,18 @@
                     <li>
                         <a href="contact.php">CONTACT US</a>
                     </li>
+                    <?php if(isLoggedIn()): ?>
                     <li>
                         <a href="admin">ADMIN</a>
                     </li> 
+                    <li>
+                        <a href="includes/logout.php">Logout</a>
+                    </li> 
+                    <?php else: ?>
+                    <li>
+                        <a href="main_login.php">LOG IN</a>
+                    </li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
