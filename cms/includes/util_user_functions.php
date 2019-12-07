@@ -67,4 +67,10 @@
             return false;
         }
     }
+
+    function checkIfUserLoggedInAndRedirect($address) {
+        if (isLoggedIn()) {
+            header("Location: {$address}");
+        }
+    }
 ?>

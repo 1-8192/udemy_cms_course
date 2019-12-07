@@ -1,5 +1,11 @@
-<?php  include "includes/db.php"; ?>
-<?php  include "includes/header.php"; ?>
+<?php  
+	include "includes/db.php";
+	include "includes/header.php"; 
+	include "includes/util_user_functions.php";
+	session_start();
+	
+	checkIfUserLoggedInAndRedirect('admin');
+?>
 
 
 
