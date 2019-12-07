@@ -7,16 +7,20 @@
     if (isset($_POST['login'])) {
         $user_name = $_POST['user_name'];
         $password = $_POST['user_password'];
+        $check = crypt($password, '$2a$07$YourSaltIsA22ChrString$');
 
-        $query = "SELECT * FROM users WHERE user_name = :name";
+        $query = "SELECT * FROM users WHERE user_name = :name AND user_password = :pw";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':name' => $user_name,
+            ':pw' => $check
         ));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (count($row) < 1) {
-            die("Query failed");
+        if ($row === false) {
+            $_SESSION['error'] = "Incorrect username or password";
+            header("Location: ../main_login.php");
+            return;
         } else {
             if (password_verify($password, $row['user_password'])) {
                 $_SESSION['user_id'] = $row['user_id'];

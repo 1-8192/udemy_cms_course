@@ -2,8 +2,7 @@
 	include "includes/db.php";
 	include "includes/header.php"; 
 	include "includes/util_user_functions.php";
-	session_start();
-	
+
 	checkIfUserLoggedInAndRedirect('admin');
 ?>
 
@@ -29,22 +28,28 @@
 							<h3><i class="fa fa-user fa-4x"></i></h3>
 							<h2 class="text-center">Login</h2>
 							<div class="panel-body">
+							<?php 
+								if (isset($_SESSION['error'])) {
+									$message = $_SESSION['error'];
+									echo '<p class="text-center" style="color:red">'."$message".'</p>';
+									unset($_SESSION['error']);
+								}
+							?>
 
-
-								<form id="login-form" role="form" autocomplete="off" class="form" method="post">
+								<form id="login-form" action="includes/login.php" role="form" autocomplete="off" class="form" method="post">
 
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-user color-blue"></i></span>
 
-											<input name="username" type="text" class="form-control" placeholder="Enter Username">
+											<input name="user_name" type="text" class="form-control" placeholder="Enter Username">
 										</div>
 									</div>
 
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock color-blue"></i></span>
-											<input name="password" type="password" class="form-control" placeholder="Enter Password">
+											<input name="user_password" type="password" class="form-control" placeholder="Enter Password">
 										</div>
 									</div>
 
