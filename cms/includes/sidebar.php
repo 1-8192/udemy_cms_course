@@ -33,6 +33,10 @@
                             <button class="btn btn-primary" name="login" type="submit">Login</button>
                         </span>
                     </div>
+                    <div class="form-group">
+                        <!-- blocking direct access to forgot password page -->
+                        <a href="forgot.php?forgot=<?php echo uniqid(true)?>">Forgot Password?</a>
+                    </div>
                     </form>
                     <!-- /.input-group -->
                 </div>
