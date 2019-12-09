@@ -1,6 +1,7 @@
 <?php  
     include "includes/db.php"; 
     include "includes/header.php"; 
+    //from PHPmailer guide it's the setup
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
@@ -48,22 +49,25 @@
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
                 $mail->Port       = Config::SMTP_PORT;                                    // TCP port to connect to
                 $mail->isHTML(true);
+                $mail->CharSet = 'UTF-8';
 
                 $mail->setFrom('testsender@test.com');
                 $mail->addAddress($email);
-                $mail->Subject = "test";
-                $mail->Body = "this is not real.";
-                $mail->send();
+                $mail->Subject = "Password Reset";
+                $mail->Body = '<p>Please click here to reset your password.
+                                <a href="http://localhost:8888/php_practice/udemy_cms_course/cms/reset.php?email='.$email.'&token='.$token.'">RESET</a>
+                                </p>';
 
                 if ($mail->send()) {
-                    echo "IT WORKED";
+                    $_SESSION['success'] = "Please check your email inbox";
+                    header("Location: forgot.php?forgot=1");
+                    return;
                 } else {
-                    echo 'OOPS';
+                    $_SESSION['error'] = "Mail failed to send please try again";
+                    header("Location: forgot.php?forgot=1");
+                    return;
                 }
 
-                $_SESSION['success'] = "Please check your email inbox";
-                header("Location: forgot.php?forgot=1");
-                return;
             } else {
                 $_SESSION['error'] = "Provided email does not match any in system";
                 header("Location: forgot.php?forgot=1");
