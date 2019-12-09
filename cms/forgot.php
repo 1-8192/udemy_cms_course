@@ -1,7 +1,9 @@
 <?php  
     include "includes/db.php"; 
     include "includes/header.php"; 
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     //checking forgot id is present in url to block someone from directly accessing page
     if (!$_GET['forgot']) {
