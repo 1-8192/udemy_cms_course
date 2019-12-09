@@ -1,6 +1,12 @@
 <?php  
     include "includes/db.php"; 
     include "includes/header.php"; 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+    require_once "vendor/autoload.php";
+    require_once "classes/config.php";
+
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
@@ -20,6 +26,7 @@
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($row !== false) {
+                //generating unique token for email reset request
                 $length = 50;
                 $token = bin2hex(openssl_random_pseudo_bytes($length));
 
@@ -28,7 +35,32 @@
                 $stmt->execute(array(
                     ':tok' => $token,
                     ':em' => $email));
+
+                //configuring PHP Mailer
+                $mail = new PHPMailer(true);
                 
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                $mail->isSMTP();                                            // Send using SMTP
+                $mail->Host       = Config::SMTP_HOST;                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = Config::SMTP_USER;                     // SMTP username
+                $mail->Password   = Config::SMTP_PASSWORD;                               // SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+                $mail->Port       = Config::SMTP_PORT;                                    // TCP port to connect to
+                $mail->isHTML(true);
+
+                $mail->setFrom('testsender@test.com');
+                $mail->addAddress($email);
+                $mail->Subject = "test";
+                $mail->Body = "this is not real.";
+                $mail->send();
+
+                if ($mail->send()) {
+                    echo "IT WORKED";
+                } else {
+                    echo 'OOPS';
+                }
+
                 $_SESSION['success'] = "Please check your email inbox";
                 header("Location: forgot.php?forgot=1");
                 return;
