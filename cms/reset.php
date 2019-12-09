@@ -15,7 +15,7 @@
     }
 
     if (isset($_POST['recover-submit'])) {
-        if (!isset($_POST['password']) || !isset($_POST['confirm-password'])) {
+        if ($_POST['password'] == "" || $_POST['confirm-password'] == "") {
             $_SESSION['error'] = "Fields cannot be empty";
             header("Location: reset.php?email='.$email.'&token='.$token.'");
             return;
